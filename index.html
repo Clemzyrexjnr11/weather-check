@@ -1,106 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./fontanwome/fontawesome-6/css/all.css">
-  <link rel="stylesheet" href="./weatherApp.css">
-  <title>Weather App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/fontanwome/fontawesome-6/css/all.css">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+/* 
+        section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+        }
+
+        .card1,
+        .card2,
+        .card3 {
+            height: 400px;
+            width: 300px;
+            background: gray;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .Click_btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 10px;
+        }
+
+        .items {
+            display: flex;
+            justify-content: space-between;
+            height: fit-content;
+            width: 90%;
+            flex-direction: column;
+        }
+
+        button {
+            border: none;
+            background: orangered;
+            width: 200px;
+            height: 50px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        p {
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        i {
+            font-size: 50px;
+            color: blue;
+        }
+        .pullOver{
+            height: 100px;
+            width: 500px;
+            border: 1px solid orangered;
+             display: flex; 
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transform: translateX(-80rem);
+        }
+       .pullOver.active{
+         transform: translateX(+500px);
+         transition: linear 1s ;
+            
+        } */
+    </style>
+
 </head>
 
 <body>
-    <div class="weather_container">
-    <div class="search_div">
-       <input type="text" class="search_input" placeholder="Enter name of city">
-       <button class="search_btn"><i class="fas fa-search" style="font-size: 15px;color: black;"></i></button>
-    </div>
-    <div class="Error_msg">
-      <p style="color: white;">Invalid City Name</p>
-    </div>
-    <div class="fullWeather_info">
-      <div class="weatherDetails_div">
-        <img src="./weather_images/Rainy.jpg" alt="" class="weather_icon">
-        <p class="temp" style="padding: 30px 0px; color: white; font-size: 35px;">17</p>
-        <p class="cityName" style="color: white; font-size: 20px;">Miami</p>
-      </div>
-      <div class="moreWeather_info">
-        <div style="display: flex; width: 90%; justify-content: space-between;">
-          <div style=" gap: 10px; display: flex; flex-direction: column;">
-            <span><i class="fas fa-wind"></i> Wind</span> 
-            <p class="windSpeed">77km/h</p>
-          </div>
-  
-          <div style=" gap: 10px; display: flex; flex-direction: column;">
-            <span><i class="fas fa-wind"></i> Humidity</span> 
-            <p class="humidity">77km/h</p>
-          </div>
-  
+
+    <section>
+        <!-- <p class="count">0</p> -->
+        <!-- <div>
+            <button class="Increase_btn">Increase</button>
+            <button class="Reset_btn">Reset</button>
+            <button class="Decrease_btn">Decrease</button>
         </div>
-        
-      </div>
-      </div>
+        <label for="visaBtn">Visa</label>
+        <input type="radio" id="visaBtn" class="visa">
+        <label for="verveBtn">Verve</label>
+        <input type="radio" id="verveBtn">
+        <label for="opayBtn">Opay</label>
+        <input type="radio" id="opayBtn"> -->
+        <!-- <label class="myLabel"></label>
+        <input type="text" class="guess_input">
+        <button class="Sub_btn">Submit</button> -->
+
+        <!-- 
+        <div class="card1">1</div>
+        <div class="card2">2</div>
+        <div class="card3">3</div>
+        <button class="Click_btn">CLICK TO START</button> -->
+
+
+        <!-- <nav>
+            <i class="fas fa-bars" style="position: absolute;right: 0; top: 0;"></i>
+        </nav>
+        <div class="pullOver">
+        <p>I am just tyrin this out to see if it would work out...</p>
     </div>
+    <p class="result"></p> -->
 
-
+    <!-- <div style="height: 100vh; width: 50%; background: lightblue;"></div>
+    <div style="height: 100vh;width: 50%; background: cyan;"></div>
+    </section> -->
     <script>
 
-    const APIkey = "36d26eefe794108abe487d27c6bb766c";
-    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-    let search_input = document.querySelector(".search_input");
-    let search_btn = document.querySelector(".search_btn");
-    let weatherIcon = document.querySelector(".weather_icon")
-   
-    async function checkweather(city){
+     let age = 16; 
 
-        const response = await fetch(apiUrl+ city + `&appid=${APIkey}`);
-
-        let data = await response.json();
-
-
-        console.log(data);
-
-        if(data.cod == "404"){
-          document.querySelector(".Error_msg").style.display="block";
-          document.querySelector(".fullWeather_info").style.display="none";
-
-        }else{
-          if(data.weather[0].main =="Clouds"){
-          weatherIcon.src = "weather_images/Cloudy.jpg"
-        }
-        else if(data.weather[0].main =="Rain"){
-          weatherIcon.src = "weather_images/Rainy.jpg"
-        }
-        else if(data.weather[0].main =="Snow"){
-          weatherIcon.src = "weather_images/Snowy.jpg"
-        }
-        else if(data.weather[0].main =="Storm"){
-          weatherIcon.src = "weather_images/Stormy.jpg"
-        }
-        else if(data.weather[0].main =="Sunny"){
-          weatherIcon.src = "weather_images/Sunny.jpg"
-        }
-        else if(data.weather[0].main =="Windy"){
-          weatherIcon.src = "weather_images/Windy.jpg"
-        }
-        else if(data.weather[0].main =="Clear"){
-          weatherIcon.src = "weather_images/Clear.jpg"
-        }
-        document.querySelector(".cityName").innerHTML =data.name ;
-        document.querySelector(".temp").innerHTML =Math.round(data.main.temp) + " °C";
-        document.querySelector(".windSpeed").innerHTML =data.wind.speed + " km/h";
-        document.querySelector(".humidity").innerHTML =data.main.humidity + " %";
-   
-      document.querySelector(".fullWeather_info").style.display = "block";
-      document.querySelector(".Error_msg").style.display = "none";
-        }
+  if(age < 20){
+      console.log('John is a teenager');
+      
+  }else{
+      console.log('John is a man');
+      
+  }
 
 
 
-    }
-      search_btn.addEventListener("click", function(){
-      checkweather(search_input.value);
-         
-      })
+
+
+
+
+
+        // let counter = 0;
+        // let inn = document.querySelector('.Increase_btn');
+        // let count = document.querySelector('.count')
+        // inn.addEventListener('click', function () {
+        //     // counter++
+        //     // count.innerHTML = counter;
+
+
+        // })
+
+        // document.querySelector('.Reset_btn').onclick = function () {
+        //     counter = 0;
+        //     count.innerHTML = counter;
+
+        // }
+
+        // document.querySelector('.Decrease_btn').onclick = function () {
+        //     // counter--;
+        //     // count.innerHTML = counter;
+
+        // }
+
+
+        //    let x  = 3.14;
+        //    x = Math.round(x);
+        //    console.log(x);
+        //    let y  = 3.14;
+        //    x = Math.floor(x);
+        //    console.log(x);
+        //    let z  = 3.14;
+        //    x = Math.pow(x,2);
+        //    console.log(x);
+        //    let a =  -3.14;
+        //    a  = Math.abs(a)
+        //    console.log(a);
+
+        // let x = 2;
+        // let y = 3;
+        // let z = 4;
+
+        // let maximum;
+        // let minimum;
+
+        // maximum = Math.max(x,y,z);
+        // console.log(maximum);
+
+        // minimum = Math.min(x,y,z);
+        // console.log(minimum);
+
+        //    let a;
+        //    let b;
+        //    let c;
+
+        //    a = window.prompt('Enter side A');
+        //    a = Number(a);
+        //    b = window.prompt('Enter side B');
+        //    b = Number(b);
+
+        //    c = Math.pow(a,2)+Math.pow(b,2);
+        //    c = Math.sqrt(c)
+        //    console.log(c);
+
+
+        //    let x = Math.floor(Math.random()*6 + 1)
+        //    let y = Math.floor(Math.random()*6 + 1)
+        //    let z = Math.floor(Math.random()*6 + 1)
+
+        //    console.log(x);
+        //    console.log(y);
+        //    console.log(z);
+
+
+
+        // let index = myName.indexOf('m');
+        // console.log(index); 
+
+
+        // function ran1() {
+        //     return Math.floor(Math.random() * 6 + 1);
+        // }
+        // function ran2() {
+        //     return Math.floor(Math.random() * 6 + 1);
+        // }
+
+
+
+        // document.querySelector('.Increase_btn').onclick = function () {
+
+
+        //     let visaBtn = document.querySelector('.visa');
+
+        //     if (visaBtn.checked) {
+        //         console.log('You are paying through a visa');
+        //         ;
+        //     } else {
+
+        //     }
+
+
+        // let number1 = ran1();
+        // let number2 = ran2();
+
+
+        //     console.log(number1);
+        //     console.log(number2);
+
+
+
+        // count.innerHTML = `${number1}  ${number2}`
+
+
+        // }
+
+
+        //     let username = 'clem';
+        //     console.log(username);
+
+        //     let up = username.toUpperCase();
+
+        //     console.log(up);
+
+        // let job = 'programmer';
+        // // job = window.prompt('Hey wat\'s ur occupation')
+        // switch (job) {
+        //     case "teacher":
+        //         console.log('I am a teacher');
+        //         break;
+
+        //     case "tailor":
+
+        //         console.log('I am a fashion designer');
+        //         break;
+        //     default:
+        //         console.log('You are a jobless yahoo boy')
+        // }
+
+
+        //  let temp = 15;
+
+        //  if(!(temp >0)){
+        //      console.log('I am feeling cold'); 
+        //  }else{
+        //      console.log('Nawaooo');
+
+        //  }
+
+
+        // LOOPS : DO AND WHILE LOOP.
+
+        // while(userName == ''){
+        //     userName = window.prompt('What is ur userName');
+        // }
+        // console.log(userName);
+        //    let userName;
+        // do{
+        //    userName = window.prompt('what is ur userName')
+        // }while(userName == " ");
+
+        // console.log(userName);
+
+        // BREAK AND CONTINUE
+        // for (let i = 1;i<=3;i++){
+        //     if(i ==13){
+        //         continue;
+        //     }
+        //     console.log(i);
+
+        // }
+
+        // JUST A FUNNY GUESSING GAME
+
+
+        //     let ran = Math.floor(Math.random()*6 + 1)
+        //     console.log(ran);
+
+        //     let guess = 0;
+        //     let myLabel = document.querySelector('.myLabel')
+        //    document.querySelector('.Sub_btn').onclick = function(){
+        //      if(document.querySelector('.guess_input').value == ran){
+        //            alert(`${ran} is the number after ${guess} guesses`)
+        //      }else if(document.querySelector('.guess_input').value < ran){
+        //          alert('The number is lesser ')
+        //      }else{
+        //          alert('The number is higher')
+        //      }
+        //      guess++
+        //    }
+
+        // NESTED FUNCTION
+
+
+        //     age()
+        //      function age(){
+        //          myAge = 18;
+
+        //          happyBirthday(myAge);
+        //      }
+
+
+
+        // function happyBirthday(){
+        //     console.log(`Happy Birthday I am  ${myAge} years old`);
+        //     console.log(`Happy Birthday I am  ${myAge} years old`);
+        //     console.log(`Happy Birthday I am  ${myAge} years old`);
+
+        // }
+
+        // let myNum = 123456.789;
+        // myNum = myNum.toLocaleString("en-US",{style:"unit", unit:'celsius'});
+        // console.log(myNum);
+
+
+        // let Click_btn = document.querySelector('.Click_btn')
+
+        // Click_btn.onclick = function(){
+
+
+        // }
+
+
+        // let ran1 = Math.floor(Math.random()*5 + 1)
+        // let ran2 = Math.floor(Math.random()*5 + 1)
+
+        // console.log(ran1);
+        // console.log(ran2);
+
+        // THE SPREAD METHOD ( REPRESENTED BY ...)
+        //    let numbers = [1,2,3,4,5,6,7,8,9];
+
+        //    console.log(numbers);
+
+        //    let userName = 'ClemzyrexJn';
+        //    console.log(...userName);
+
+        //    let class1 = ['Dave','Joy','King'];
+        //    let class2 = ['Peace','Great'];
+
+        //    class1.push(...class2);
+        //    console.log(...class1);
+
+
+
+        // THE REST PARAMETERS (...)
+
+        // let a = 1;
+        // let b = 2;
+        // let c = 3;
+        // let d = 4;
+        // let e = 5;
+
+        // console.log(sum());
+
+        // function  sum(... numbers){
+        //     let total =0
+        //    for (number of numbers){
+        //     total += number;
+        //    }
+        //    return total;
+        // }
+
+
+
+        // CALLBACK FUNCTION
+
+        // let total = sum(2,3);
+        // // displayConsole(total);
+        //  function sum(x,y){
+        //    let result = x + y;
+        //    return result;
+        // }
+
+
+        //  function displayConsole(output){
+        //      console.log(output);
+
+        //  }
+        //    summ(2,3,displayConsole);
+
+        //       function summ(x,y,callBack){
+        //     let result = x + y;
+
+        //     callBack(result);
+        //       }
+
+        //   let a = 1;
+        //   let b = 2;
+        //   let c = 3;
+        //   let d = 4;
+        //   let e = 5;
+
+        //   function sum(...number){
+
+        //   }
+
+        //  METHOD IN ARRAY (SORT & REVERSE)
+        //   let fruits = ['banana','apple','coco'];
+        //   fruits.sort().reverse();
+        //   console.log(fruits);
+        // let ran1 = Math.floor(Math.random()*6 + 1);
+        // let ran2 = Math.floor(Math.random()*6 + 1);
+
+        // let card1 = document.querySelector('.card1')
+        // let card2 = document.querySelector('.card2')
+        // let card3 = document.querySelector('.card3')
+
+        //   let cards = [card1,card2,card3];
+
+        //   console.log(...cards);
+
+
+        //    document.querySelector('.Click_btn').addEventListener('click',function(){
+
+        //    })
+      // JUST TRYIN SOMTH//
+       
+        // let section = document.querySelector('section')
+        // let nav = document.querySelector('nav');
+        // let pullOver = document.querySelector('.pullOver')
+        // nav.onclick = (e)=>{
+        //     const hit = e.target;
+        //     if(hit.classList.contains('fas')){
+        //         if(hit.classList.contains('fa-bars')){
+        //             pullOver.classList.add('active')
+        //             hit.classList.remove('fa-bars');
+        //             hit.classList.add('fa-times');
+        //         }else{
+        //             hit.classList.add('fa-bars');
+        //             hit.classList.remove('fa-times');
+        //             pullOver.classList.remove('active')
+
+        //         }
+        //     }
+        // }
+
+      
+
     </script>
-  </body>
+</body>
+
 </html>
