@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./fontanwome/fontawesome-6/css/all.css">
+  <link rel="stylesheet" href="./weatherApp.css">
+  <title>Weather App</title>
+</head>
+
+<body>
+    <div class="weather_container">
+    <div class="search_div">
+       <input type="text" class="search_input" placeholder="Enter name of city">
+       <button class="search_btn"><i class="fas fa-search" style="font-size: 15px;color: black;"></i></button>
+    </div>
+    <div class="Error_msg">
+      <p style="color: white;">Invalid City Name</p>
+    </div>
+    <div class="fullWeather_info">
+      <div class="weatherDetails_div">
+        <img src="./weather_images/Rainy.jpg" alt="" class="weather_icon">
+        <p class="temp" style="padding: 30px 0px; color: white; font-size: 35px;">17</p>
+        <p class="cityName" style="color: white; font-size: 20px;">Miami</p>
+      </div>
+      <div class="moreWeather_info">
+        <div style="display: flex; width: 90%; justify-content: space-between;">
+          <div style=" gap: 10px; display: flex; flex-direction: column;">
+            <span><i class="fas fa-wind"></i> Wind</span> 
+            <p class="windSpeed">77km/h</p>
+          </div>
+  
+          <div style=" gap: 10px; display: flex; flex-direction: column;">
+            <span><i class="fas fa-wind"></i> Humidity</span> 
+            <p class="humidity">77km/h</p>
+          </div>
+  
+        </div>
+        
+      </div>
+      </div>
+    </div>
+
+
+    <script>
+
+    const APIkey = "36d26eefe794108abe487d27c6bb766c";
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+    let search_input = document.querySelector(".search_input");
+    let search_btn = document.querySelector(".search_btn");
+    let weatherIcon = document.querySelector(".weather_icon")
+   
+    async function checkweather(city){
+
+        const response = await fetch(apiUrl+ city + `&appid=${APIkey}`);
+
+        let data = await response.json();
+
+
+        console.log(data);
+
+        if(data.cod == "404"){
+          document.querySelector(".Error_msg").style.display="block";
+          document.querySelector(".fullWeather_info").style.display="none";
+
+        }else{
+          if(data.weather[0].main =="Clouds"){
+          weatherIcon.src = "weather_images/Cloudy.jpg"
+        }
+        else if(data.weather[0].main =="Rain"){
+          weatherIcon.src = "weather_images/Rainy.jpg"
+        }
+        else if(data.weather[0].main =="Snow"){
+          weatherIcon.src = "weather_images/Snowy.jpg"
+        }
+        else if(data.weather[0].main =="Storm"){
+          weatherIcon.src = "weather_images/Stormy.jpg"
+        }
+        else if(data.weather[0].main =="Sunny"){
+          weatherIcon.src = "weather_images/Sunny.jpg"
+        }
+        else if(data.weather[0].main =="Windy"){
+          weatherIcon.src = "weather_images/Windy.jpg"
+        }
+        else if(data.weather[0].main =="Clear"){
+          weatherIcon.src = "weather_images/Clear.jpg"
+        }
+        document.querySelector(".cityName").innerHTML =data.name ;
+        document.querySelector(".temp").innerHTML =Math.round(data.main.temp) + " °C";
+        document.querySelector(".windSpeed").innerHTML =data.wind.speed + " km/h";
+        document.querySelector(".humidity").innerHTML =data.main.humidity + " %";
+   
+      document.querySelector(".fullWeather_info").style.display = "block";
+      document.querySelector(".Error_msg").style.display = "none";
+        }
+
+
+
+    }
+      search_btn.addEventListener("click", function(){
+      checkweather(search_input.value);
+         
+      })
+    </script>
+  </body>
+</html>
